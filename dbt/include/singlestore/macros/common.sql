@@ -208,6 +208,7 @@
     {% if create_query is none or create_query is undefined -%}
         {%- do exceptions.raise_compiler_error('Could not get view definition for {}'.format(from_relation.identifier)) -%}
     {%- endif %}
+    USE {{ from_relation.database }};
     {{ create_query|replace(from_relation.identifier, to_relation.identifier, 1) }}
 {% endmacro %}
 
