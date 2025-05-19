@@ -201,6 +201,8 @@
     {% set create_query = result[0][1] -%}
     {% if create_query is none or create_query is undefined -%}
         {%- do exceptions.raise_compiler_error('Could not get view definition for {}'.format(from_relation.identifier)) -%}
+    {%- else -%}
+        {% set create_query = "USING " ~ from_relation.database ~ " " ~ create_query %}
     {%- endif %}
 
     {# Remove DEFINER=... (works if DEFINER appears only once) #}
